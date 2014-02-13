@@ -1,0 +1,55 @@
+Command line parameters:  noisy_line RobustBoost 0.12
+
+Configuration parameters:
+serialTreeInput = null
+booster_type = jboost.booster.RobustBoost
+b = RobustBoost
+args =  noisy_line RobustBoost 0.12
+boostingRuntime = 1.0
+pythonCodeOutputFileName = null
+nthreads = null
+cCodeOutputFileName = null
+javaCodeOutputFileName = null
+version = null
+testFileName = noisy_line.test
+trainFileName = noisy_line.train
+specFileName = noisy_line.spec
+serializationOutputFileName = null
+S = noisy_line
+resultOutputFileName = noisy_line.output.tree
+rb_epsilon = 0.12
+matlabCodeOutputFileName = null
+
+
+RobustBoost parameters:
+rb_t = 0.0
+rb_epsilon = 0.12
+rb_theta_0 = 0.0
+rb_theta_1 = 0.0
+rb_sigma_f_0 = 0.1
+rb_sigma_f_1 = 0.1
+rb_cost_0 = 1.0
+rb_cost_1 = 1.0
+rb_conf_rated = true
+rb_potentialSlack = 1.0E-7
+
+FILENAMES
+specFilename = noisy_line.spec
+trainFilename = noisy_line.train
+testFilename = noisy_line.test
+trainBoostingInfo = noisy_line.train.boosting.info
+testBoostingInfo = noisy_line.test.boosting.info
+resultOutputFilename = noisy_line.output.tree
+logOutputFilename = noisy_line.log
+
+Train set size = 100
+Test set size = 100
+
+Init  Start time = Mon May 17 16:22:42 PDT 2010
+Learn Start time = Mon May 17 16:22:42 PDT 2010
+iter 	bound 	train 	test 	time
+0	0.1200	0.4900	0.5000	0.0002
+1	0.1100	0.1100	0.0000	1.0000
+End time=Mon May 17 16:22:43 PDT 2010
+
+rb_t = 0.999999999999993

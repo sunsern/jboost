@@ -1,0 +1,34 @@
+How to install scripts
+-----------------
+
+Requirements:
+  * Python (tested with version 2.5.2, though lower version may work)
+  * R (version 2.6 or higher)
+    * igraph (R package, can be obtained via install.packages() or CRAN)
+
+
+How to use the visualization scripts
+--------------------------
+
+source("atreeplot.R")
+plot.atree(treefile="stem.output.tree", specfile="stem.spec")
+
+source("marginplot.R")
+plot.margin(infofile="stem.train.boosting.info", specfile="stem.spec", iteration=c(10,50,100))
+
+
+
+
+How to make the package
+--------------------------
+
+for (f in dir(pattern=".R$"))  source(f)
+rm(f)
+package.skeleton("jboost", ls(), force=TRUE)
+system(paste("cp DESCRIPTION ", "jboost", "/DESCRIPTION", sep=""))
+system(paste("rm ", "jboost", "/Read-and-delete-me", sep=""))
+system(paste("R CMD build", "jboost"))
+
+
+
+

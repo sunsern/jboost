@@ -1,0 +1,162 @@
+import sys, os, os.path, re, math, glob
+import jarray
+from java.util import Vector
+
+def usage():
+    print("Usage: VisualizeScores <info-files-path>")
+    print("info-file-path is a directory containing files with names like trial0.test.boosting.info, trial2.train.boosting.info ...")
+    print("Example: perform the following commands from the jboost root directory")
+    print("<setup classpath to point to jython>")
+    print("source scripts/setClassPath.sh")
+    print("cd demo")
+    print("cat spambase.test spambase.train > spambase.data")
+    print("../scripts/nfold.py --folds=3 --data=spambase.data --spec=spambase.spec --rounds=43 --tree=ADD_ALL --generate --booster=LogLossBoost")
+    print("jython ../scripts/VisualizeScores.py cvdata-09-09-17-00-55/ADD_ALL/trial*")
+    print("")
+    print("IMPORTANT NOTE:  jboost should of been run on data and spec files passed through AddRandomIndex.py")
+
+def main():
+    args = sys.argv[1:]
+    
+    globpath = None
+    if len(args) == 1:
+        globpath = args[0]
+    else:
+        usage()
+        sys.exit(2)
+
+    header_p = re.compile('iteration=(\d+): elements=(\d+):')
+    scoreline_p = re.compile('([-+\d.]+):\s+') #([+-1]+):')
+    
+    testfiles = glob.glob(globpath + '.test.boosting.info')
+    trainfiles = glob.glob(globpath + '.train.boosting.info')
+    
+    #testfiles = glob.glob("/Users/yoavfreund/Downloads/dc_boost_active_output/iter?/*.test.boosting.info")
+    
+    #testfiles = glob.glob("/Users/yoavfreund/projects/jboost/demo/cvdata-09-09-17-00-55/ADD_ALL/trial*.test.boosting.info")
+    
+    print testfiles
+    exampleData = {}
+    
+    #find the iteration indices
+    
+    infile = open(testfiles[0], 'r')
+    iterList = []
+    iterDict = {}
+    iterationIndex = 0
+    for line in infile:
+        [(iter, elements)] = header_p.findall(line)
+        elements = int(elements)
+    
+        if iterDict.has_key(iter):
+            sys.exit("data file " + testfiles[0] + " has two lists corresponding to iteration " + iter)
+        iterList.append(iter)
+        iterDict[iter] = iterationIndex
+        iterationIndex = iterationIndex + 1
+    
+        for count in range(elements):
+            line = infile.readline()
+    
+    from jboost.visualization import DataSet, DataElement, HistogramFrame
+    
+    d = DataSet(iterList)
+
+    d.setOutputFilename('.' + "/selectedExamples.txt")
+    
+    # read the data into the Dataset data structures.
+    for filename in testfiles:
+        print filename
+        infile = open(filename, 'r')
+        iterList = [];
+        for line in infile:
+            [(iter, elements)] = header_p.findall(line)
+            iterationIndex = iterDict[iter]
+            elements = int(elements)
+    
+            for count in range(elements):
+                line = infile.readline()
+                #print line
+                a = scoreline_p.findall(line)
+                index = int(a[1])
+                score = float(a[3])
+                label = int(a[ - 1])
+                if not exampleData.has_key(index):
+                    exampleData[index] = {"label":label, "scores":{} }
+                exampleData[index]["scores"][int(iter)] = {"test":score, "train":[]}
+                e = DataElement(score, index, label)
+                d.addDataElement(e, iterationIndex)
+    
+    d.preProcessDataset()
+    lowestScore = d.getMin()
+    highestScore = d.getMax()
+    print "lowestScore=%f, highestScore=%f\n" % (lowestScore, highestScore)
+    
+    print len(exampleData)
+    
+    for filename in trainfiles:
+        print filename
+        infile = open(filename, 'r')
+        for line in infile:
+            [(iter, elements)] = header_p.findall(line)
+            iterationIndex = iterDict[iter]
+            elements = int(elements)
+    
+            for count in range(elements):
+                line = infile.readline()
+                #print line
+                a = scoreline_p.findall(line)
+                index = int(a[1])
+                score = float(a[3])
+                label = int(a[ - 1])
+                if exampleData.has_key(index):
+                    exampleData[index]["scores"][int(iter)]["train"].append(score)
+                #else:
+                    #print "missing index=%d\n" % index
+    
+      
+    iterList = exampleData[0]["scores"].keys()
+    iterList.sort()
+    
+    fluctBins = 20
+    percentage = 0.05
+    barHeight = 6
+    binWidth = (highestScore - lowestScore) / fluctBins
+    fluct = {}
+    for iter in iterList:
+        fluct[iter] = [ {"trainScores":[]} for i in range(fluctBins)]
+    
+    for iterNo in range(len(iterList)):
+        iter = iterList[iterNo]
+        print "iteration %d\n" % iter
+        for index in exampleData.keys():
+            testScore = exampleData[index]["scores"][iter]["test"]
+            bin = int((testScore - lowestScore) / binWidth)
+            bin = min(bin, fluctBins - 1)
+            for trainScore in  exampleData[index]["scores"][iter]["train"]:
+                fluct[iter][bin]["trainScores"].append(trainScore)
+    
+        y = 0
+        for bin in range(fluctBins):
+            fluct[iter][bin]["trainScores"].sort()
+            n = len(fluct[iter][bin]["trainScores"])
+            if n > 10:
+                bottom = fluct[iter][bin]["trainScores"][int(n * percentage)]
+                top = fluct[iter][bin]["trainScores"][int(n * (1 - percentage))]
+                yMax = y
+                yMin = y - barHeight
+                y = y - 1.1 * barHeight
+                fluct[iter][bin]["bottom"] = bottom
+                fluct[iter][bin]["top"] = top
+                fluct[iter][bin]["yMin"] = yMin
+                fluct[iter][bin]["yMax"] = yMax
+                
+                print "[%f,%f] -> [%f,%f] X [%f,%f]\n" % (lowestScore + bin * binWidth, lowestScore + (bin + 1) * binWidth, bottom, top, yMin, yMax)
+                d.addFluctItems(iterNo, lowestScore + bin * binWidth, lowestScore + (bin + 1) * binWidth, bottom, top, yMin, yMax)
+                fluct[iter][bin]["trainScores"] = []
+    
+    
+    v = HistogramFrame(d)
+    v.show()
+
+if __name__ == "__main__":
+    main()

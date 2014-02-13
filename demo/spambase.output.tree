@@ -1,0 +1,32 @@
+0	[R] prediction = BinaryPrediction. p(1)= 0.2279298102299376
+1	[R.0] Splitter = InequalitySplitter. char_freq_bang < 0.0785
+1	[R.0:0] prediction = BinaryPrediction. p(1)= 0.638109949122525
+1	[R.0:1] prediction = BinaryPrediction. p(1)= -0.6921431150862234
+10	[R.0:1.0] Splitter = InequalitySplitter. char_freq_bang < 0.8665
+10	[R.0:1.0:0] prediction = BinaryPrediction. p(1)= 0.3991238648063803
+10	[R.0:1.0:1] prediction = BinaryPrediction. p(1)= -0.446745208559594
+2	[R.1] Splitter = InequalitySplitter. word_freq_remove < 0.01
+2	[R.1:0] prediction = BinaryPrediction. p(1)= 0.2596893350510752
+5	[R.1:0.0] Splitter = InequalitySplitter. word_freq_hp < 0.12
+5	[R.1:0.0:0] prediction = BinaryPrediction. p(1)= -0.1824859290693248
+6	[R.1:0.0:0.0] Splitter = InequalitySplitter. capital_run_length_longest < 9.5
+6	[R.1:0.0:0.0:0] prediction = BinaryPrediction. p(1)= 0.650314251446431
+6	[R.1:0.0:0.0:1] prediction = BinaryPrediction. p(1)= -0.37794712925536966
+5	[R.1:0.0:1] prediction = BinaryPrediction. p(1)= 1.0952082453519383
+8	[R.1:0.1] Splitter = InequalitySplitter. word_freq_meeting < 0.455
+8	[R.1:0.1:0] prediction = BinaryPrediction. p(1)= -0.07375891128821287
+9	[R.1:0.1:0.0] Splitter = InequalitySplitter. word_freq_our < 0.095
+9	[R.1:0.1:0.0:0] prediction = BinaryPrediction. p(1)= 0.2083470537391964
+9	[R.1:0.1:0.0:1] prediction = BinaryPrediction. p(1)= -0.49170630741860094
+8	[R.1:0.1:1] prediction = BinaryPrediction. p(1)= 2.891129212121895
+2	[R.1:1] prediction = BinaryPrediction. p(1)= -1.5319957375187236
+3	[R.2] Splitter = InequalitySplitter. char_freq_dollar < 0.1035
+3	[R.2:0] prediction = BinaryPrediction. p(1)= 0.2247157914956868
+3	[R.2:1] prediction = BinaryPrediction. p(1)= -1.1253547454397437
+4	[R.3] Splitter = InequalitySplitter. word_freq_george < 0.20500000000000002
+4	[R.3:0] prediction = BinaryPrediction. p(1)= -0.12867236787515568
+7	[R.3:0.0] Splitter = InequalitySplitter. word_freq_edu < 0.08499999999999999
+7	[R.3:0.0:0] prediction = BinaryPrediction. p(1)= -0.1356172545899705
+7	[R.3:0.0:1] prediction = BinaryPrediction. p(1)= 1.0192628791621654
+4	[R.3:1] prediction = BinaryPrediction. p(1)= 2.531462546142542
+

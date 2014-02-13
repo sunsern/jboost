@@ -1,0 +1,50 @@
+Command line parameters:  spambase test.c 10
+
+Configuration parameters:
+serialTreeInput = null
+booster_type = jboost.booster.AdaBoost
+c = test.c
+args =  spambase test.c 10
+boostingRuntime = 1.0
+pythonCodeOutputFileName = null
+nthreads = null
+cCodeOutputFileName = test.c
+javaCodeOutputFileName = null
+version = null
+numRounds = 10
+testFileName = spambase.test
+trainFileName = spambase.train
+specFileName = spambase.spec
+serializationOutputFileName = null
+S = spambase
+resultOutputFileName = spambase.output.tree
+matlabCodeOutputFileName = null
+
+
+FILENAMES
+specFilename = spambase.spec
+trainFilename = spambase.train
+testFilename = spambase.test
+trainBoostingInfo = spambase.train.boosting.info
+testBoostingInfo = spambase.test.boosting.info
+resultOutputFilename = spambase.output.tree
+logOutputFilename = spambase.log
+
+Train set size = 3681
+Test set size = 920
+
+Init  Start time = Mon Feb 06 11:14:51 PST 2012
+Learn Start time = Mon Feb 06 11:14:53 PST 2012
+iter 	bound 	train 	test
+0	0.9746	0.3879	0.4185
+1	0.7927	0.2059	0.2207
+2	0.6705	0.1779	0.1935
+3	0.5978	0.1532	0.1848
+4	0.5350	0.1483	0.1522
+5	0.4960	0.1258	0.1304
+6	0.4526	0.0967	0.1065
+7	0.4223	0.0853	0.1000
+8	0.4038	0.0820	0.0957
+9	0.3867	0.0731	0.0826
+10	0.3725	0.0717	0.0804
+End time=Mon Feb 06 11:14:55 PST 2012

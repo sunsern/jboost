@@ -1,0 +1,13 @@
+Package: jboost
+Version: 0.1
+Date: 2008-07-31
+Title: Plotting JBoost output
+Author: Aaron Arvey <aarvey@cs.ucsd.edu>
+Maintainer: Aaron Arvey <aarvey@cs.ucsd.edu>
+Depends: R (>= 2.6.0), igraph
+Suggests: lattice
+Description: Boosting can be analyzed in many ways.  These 
+  functions help visualize margins, scores, atrees, error rates, 
+  early stopping, and other related tasks.
+License: GPL (>= 2)
+URL: http://jboost.sourceforge.net  http://www.sourceforge.com/projects/jboost  

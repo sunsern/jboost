@@ -1,0 +1,10 @@
+Spec: long.spec, Test: long.test, Train: long.train
+The m_booster is: jboost.booster.RobustBoost. No of examples = 0
+index	margin	weight	old weight	sample weight	label
+
+The m_booster is: jboost.booster.RobustBoost. No of examples = 0
+index	margin	weight	old weight	sample weight	label
+
+It took 6.079 seconds to learn.
+Testing rule.
+finished closing output files

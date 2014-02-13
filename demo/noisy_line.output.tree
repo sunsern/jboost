@@ -1,0 +1,5 @@
+0	[R] prediction = BinaryPrediction. p(1)= 0.008508718815410229
+1	[R.0] Splitter = InequalitySplitter. f0 < 0.505
+1	[R.0:0] prediction = BinaryPrediction. p(1)= -3.2114084549617954
+1	[R.0:1] prediction = BinaryPrediction. p(1)= 0.893067181050153
+
